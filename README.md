@@ -18,6 +18,7 @@ The skill selects one company per theme, checks recent supporting evidence, iden
 - Avoids price targets, entry prices, position sizing, and buy or sell recommendations.
 
 > **Tip:** For the best results, use this skill with a larger, more capable model that has internet access and reasoning or thinking mode enabled.
+> 
 > **Important:** This skill is for research and educational purposes only. It is not financial advice.
 
 ## Download
