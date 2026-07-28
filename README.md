@@ -58,6 +58,12 @@ Claude accepts custom skills as ZIP packages. The downloaded `.skill` file is a 
 
 If Claude does not accept the `.skill` extension, make a copy, rename it to `bottleneck-stock-scanner.zip`, and upload the renamed ZIP file.
 
+If your version supports installation from a conversation, attach the `.skill` or ZIP file and say:
+
+```text
+Install this skill and make it available in future chats.
+```
+
 ## Install with a CLI Agent
 
 Download the package and give its location to your CLI agent with this prompt:
