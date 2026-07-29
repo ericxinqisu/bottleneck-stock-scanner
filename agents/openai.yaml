@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bottleneck Stock Scanner V2"
+  short_description: "Classify bottlenecks and build stock reports"
+  default_prompt: "Use $bottleneck-stock-scanner to build a diversified report and classify every bottleneck as Probably Temporary or Potentially Hard to Scale."
