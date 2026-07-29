@@ -1,133 +1,121 @@
-# Bottleneck Stock Scanner
+# Bottleneck Stock Scanner V2
 
-A reusable AI agent skill for finding public companies positioned around hard-to-scale supply-chain bottlenecks.
+A reusable AI research skill for finding public companies positioned around supply-chain bottlenecks—and testing whether each bottleneck is likely temporary or genuinely difficult to scale.
 
-Instead of chasing popular stocks, the scanner starts with a fast-growing demand trend—such as AI infrastructure, semiconductors, power, critical minerals, cybersecurity, defense, or healthcare—and asks:
+Instead of starting with popular stocks, the scanner starts with a growing demand wave, maps the required supply chain, identifies the binding constraint, and asks:
 
-> If this industry keeps growing, which company could become difficult to avoid?
+> If this industry keeps growing, which company could become difficult to avoid—and will the constraint last long enough for the company to capture value?
 
-The skill selects one company per theme, checks recent supporting evidence, identifies what investors should monitor, and clearly explains the major risks.
+## What V2 Adds
 
-## What It Does
+Every stock now receives one required durability indicator:
 
-- Finds companies connected to scarce or difficult-to-scale capabilities.
-- Uses one stock per supply-chain theme to reduce hidden concentration.
-- Requires recent evidence such as orders, backlog, customer agreements, regulatory approvals, or financial results.
-- Assigns a clear risk level to every candidate.
-- Produces a structured, source-backed research report.
-- Avoids price targets, entry prices, position sizing, and buy or sell recommendations.
+- **Probably Temporary**
+- **Potentially Hard to Scale**
 
-> **Tip:** For the best results, use this skill with a larger, more capable model that has internet access and reasoning or thinking mode enabled.
-> 
-> **Important:** This skill is for research and educational purposes only. It is not financial advice.
+Each classification includes:
+
+- Confidence level
+- Research horizon
+- Demand, qualified-supply, and workaround timelines
+- Evidence supporting and challenging the conclusion
+- Company value-capture analysis
+- Observable conditions that would flip the indicator
+
+## Research Framework
+
+V2 evaluates every candidate using seven tests:
+
+1. Multi-constraint supply-chain mapping
+2. Money-and-time test
+3. Substitution and input-intensity test
+4. Entry-barrier test
+5. Full-cycle historical test
+6. Bottleneck-migration test
+7. Company value-capture test
+
+The methodology draws on research approaches from Epoch AI, Google DeepMind, Oaktree, Morgan Stanley Investment Management, and Baillie Gifford.
+
+## Core Rules
+
+- Select one stock per distinct supply-chain theme.
+- Use live research and recent dated evidence.
+- Require a primary company source and an independent source.
+- Search for disconfirming evidence—not only support for the thesis.
+- Distinguish announced capacity from customer-qualified output.
+- Separate an industry bottleneck from the company’s ability to capture value.
+- Assign an explicit risk level to every candidate.
+- Avoid price targets, entry prices, position sizing, and buy or sell recommendations.
+
+## Report Output
+
+The normal deliverable is a source-backed PDF containing:
+
+- Research disclaimer
+- Executive summary
+- One-theme-per-stock watchlist
+- Durability indicator and confidence for every stock
+- Per-stock deep dives
+- Counterevidence and thesis invalidation conditions
+- Monitoring signals and key risks
+- Dated source list with direct links
 
 ## Download
 
-Go to the [latest GitHub Release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest) and download:
+Open the [latest GitHub Release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest) and download:
 
 ```text
-bottleneck-stock-scanner.skill
+bottleneck-stock-scanner-v2.skill
 ```
 
-You can also use the [direct download link](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner.skill).
+[Direct download from the latest release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner-v2.skill)
 
-## Install in ChatGPT Desktop
+## Install
 
-1. Download `bottleneck-stock-scanner.skill` from the latest Release.
-2. Open the ChatGPT desktop app.
-3. Open **Skills** in the sidebar or profile menu.
-4. Select **New Skill → Upload from your computer**.
-5. Choose the downloaded `.skill` file.
-6. Start a new chat and ask ChatGPT to use the skill.
+### Codex or ChatGPT Desktop
 
-If your version supports installation from a conversation, attach the file and say:
+1. Download `bottleneck-stock-scanner-v2.skill`.
+2. Open the Skills section in the desktop app.
+3. Choose **New Skill** or **Upload from your computer**.
+4. Select the downloaded `.skill` file.
+5. Start a new task and ask the app to use the Bottleneck Stock Scanner.
 
-```text
-Install this skill and make it available in future chats.
-```
-
-If ChatGPT treats it only as a normal attachment, use the **Skills** menu instead.
-
-## Install in Claude or Claude Desktop
-
-Claude accepts custom skills as ZIP packages. The downloaded `.skill` file is a ZIP-based skill package.
-
-1. Download `bottleneck-stock-scanner.skill`.
-2. Open Claude or Claude Desktop.
-3. Go to **Customize → Skills**.
-4. Select **+ → Create skill → Upload a skill**.
-5. Upload the package and enable the skill.
-
-If Claude does not accept the `.skill` extension, make a copy, rename it to `bottleneck-stock-scanner.zip`, and upload the renamed ZIP file.
-
-If your version supports installation from a conversation, attach the `.skill` or ZIP file and say:
+If installation from a conversation is supported, attach the file and say:
 
 ```text
 Install this skill and make it available in future chats.
 ```
 
-## Install with a CLI Agent
+### Claude or Claude Desktop
 
-Download the package and give its location to your CLI agent with this prompt:
+If your version supports reusable skills or project instructions, upload the `.skill` file or copy the included `SKILL.md` and reference file into the relevant project.
+
+### Manual installation
+
+The package is a ZIP-compatible archive containing:
 
 ```text
-Install the skill package at /path/to/bottleneck-stock-scanner.skill as a global user skill for this CLI agent.
-
-Inspect the archive first and verify that it contains a valid SKILL.md. Install it in this agent's official global user-skills directory so it is available across all projects. Do not overwrite an existing version without asking. After installation, verify that the skill is discoverable and tell me the exact installation path. If this CLI does not support Agent Skills, tell me instead of inventing a location.
+bottleneck-stock-scanner/SKILL.md
+bottleneck-stock-scanner/agents/openai.yaml
+bottleneck-stock-scanner/references/durability-classification.md
 ```
 
-There is no single skills folder shared by every CLI agent. Each agent has its own location.
-
-### Codex CLI
-
-Install globally for all Codex projects:
-
-```bash
-mkdir -p ~/.agents/skills
-unzip /path/to/bottleneck-stock-scanner.skill -d ~/.agents/skills
-```
-
-Then restart Codex if needed and run `/skills`. Invoke it directly with `$bottleneck-stock-scanner`.
-
-For one repository only, extract it into `YOUR-REPOSITORY/.agents/skills/`.
-
-### Claude Code
-
-Install globally for all Claude Code projects:
-
-```bash
-mkdir -p ~/.claude/skills
-unzip /path/to/bottleneck-stock-scanner.skill -d ~/.claude/skills
-```
-
-Then run `/skills`. Invoke it directly with `/bottleneck-stock-scanner`.
-
-For one repository only, extract it into `YOUR-REPOSITORY/.claude/skills/`.
-
-### Other CLI Agents
-
-This package follows the open Agent Skills structure: a skill folder containing a `SKILL.md` file. Check the agent's documentation for its global skills directory, extract the package there, and restart the agent if necessary. Not every AI CLI supports Agent Skills.
+Extract the folder into the skills directory used by your AI agent environment.
 
 ## Example Prompts
 
 ```text
-Run a bottleneck stock scan using the default settings.
+Use the bottleneck stock scanner to find 10 U.S.-listed candidates across 10 different supply-chain themes.
 ```
 
 ```text
-Find 10 U.S.-listed companies across 10 different supply-chain bottleneck themes using current primary sources.
+Classify every candidate as Probably Temporary or Potentially Hard to Scale and show the evidence against each conclusion.
 ```
 
-## Safety Notes
+```text
+Update the bottleneck report using current filings, company sources, competitors, customers, and independent research.
+```
 
-- Review any skill before installing it, especially if it contains scripts.
-- This skill does not place trades or access brokerage accounts.
-- Live research requires internet or web-search access.
-- The generated watchlist is a research starting point, not a list of recommendations.
+## Important Notice
 
-## Official References
-
-- [OpenAI: Build and install skills](https://learn.chatgpt.com/docs/build-skills)
-- [Anthropic: Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
-- [Anthropic: Extend Claude Code with skills](https://code.claude.com/docs/en/slash-commands)
-- [Agent Skills open standard](https://agentskills.io)
+This skill is for research and education only. It is not financial advice and does not provide recommendations to buy or sell securities. Small-cap and thematic stocks can be extremely volatile.
