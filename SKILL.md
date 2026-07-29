@@ -1,91 +1,212 @@
 ---
 name: bottleneck-stock-scanner
-description: Build a diversified bottleneck-style stock research report — one stock per supply-chain theme where demand could force attention toward a scarce product, capability, or infrastructure layer. Use when the user asks for a "bottleneck" stock scan, a one-theme-per-stock watchlist, or research candidates across supply-chain chokepoints.
+description: Build diversified, research-only public-equity bottleneck reports with one company per supply-chain theme, and classify every stock's bottleneck thesis as either Probably Temporary or Potentially Hard to Scale. Use for bottleneck stock scans, one-theme-per-stock watchlists, supply-chain chokepoint research, bottleneck durability checks, or requests to distinguish a short-lived shortage from a structurally difficult-to-scale constraint.
 ---
 
-# Bottleneck Stock Scanner
+# Bottleneck Stock Scanner V2
 
-Produce a diversified, research-only stock report that identifies **one company per major supply-chain theme** where a demand wave is colliding with a hard-to-scale chokepoint. The goal is breadth across themes — never ten stocks in the same trade.
+Produce a diversified public-equity research report that starts with demand, maps the full supply chain, identifies the binding constraint, and determines whether the selected company controls a temporary shortage or a potentially durable chokepoint.
 
-**This is research and education only, not financial advice.** Every report must carry that disclaimer at the top and avoid recommendations to buy or sell.
+Keep one stock per theme. Do not turn one popular trade into several nominally different themes.
 
-## When to use
+Place this disclaimer prominently near the beginning of every report:
 
-- "Run me a bottleneck scan"
-- "Give me a diversified watchlist of supply-chain bottleneck stocks"
-- "Update / refresh the bottleneck stock report"
-- Any request for stocks framed around scarcity, chokepoints, or supply-chain constraints across multiple themes
+> Important: This report is for research and education only. It is not financial advice, not a recommendation to buy or sell securities, and does not consider personal risk tolerance, time horizon, tax situation, or portfolio. Small-cap and thematic stocks can be extremely volatile.
 
-## Before you start: clarify scope
+Do not provide buy or sell recommendations, price targets, entry prices, or position sizes.
 
-If the user hasn't specified, ask 1–3 short clarifying questions via `AskUserQuestion`:
+## Load the durability framework
 
-- **Number of candidates** (default 10)
-- **Geography / market** (default U.S.-listed)
-- **Themes to include or exclude** (defaults span: AI infrastructure, semiconductor packaging, grid/power, critical minerals, energy storage, cybersecurity, defense autonomy, healthcare/nuclear medicine — but you can swap in biotech, water, agriculture, space, etc.)
-- **Risk appetite** (whether to lean toward small-cap asymmetric picks vs. large-cap incumbents)
+Read [references/durability-classification.md](references/durability-classification.md) completely before researching or classifying candidates. Apply its definitions, three-clock model, seven tests, evidence standards, and conservative decision rule to every stock.
 
-Skip clarification only if the user explicitly says "use defaults" or "same as last time."
+## Set the scope
 
-## Methodology (apply to each candidate)
+Use the user's requested scope. If material choices are missing and clarification is necessary, ask no more than three short questions covering candidate count, geography, theme exclusions, or risk preference.
 
-1. **Demand wave.** Name the macro driver — what is growing fast enough to strain supply?
-2. **Supply-chain map.** Identify the component, service, or capacity layer that must scale for that demand to be met.
-3. **Bottleneck.** Favor layers that are technically difficult, capacity-constrained, regulated, strategically important, or protected by customer qualification barriers.
-4. **Validation.** Cite recent orders, backlog, product approvals, customer agreements, management commentary, or market behavior — with dates. No validation, no inclusion.
-5. **One stock per theme.** Never stack multiple picks on the same theme. This is the core diversification rule.
-6. **Risk penalty.** Downgrade for balance-sheet weakness, high valuation, customer concentration, regulatory issues, execution delays, or geopolitical exposure. Each candidate gets a risk label: Low / Medium / Medium-High / High / Very High.
+Otherwise use these defaults:
 
-## Research workflow
+- Candidates: 10
+- Market: U.S.-listed securities, including ADRs when appropriate
+- Themes: AI infrastructure, semiconductor manufacturing or packaging, grid and power, critical minerals, energy storage, cybersecurity, defense autonomy, healthcare infrastructure or nuclear medicine, plus other distinct themes that clear the evidence bar
+- Risk mix: combine established incumbents with a limited number of higher-risk asymmetric candidates
+- Research date: today's actual date
 
-1. **Refresh the date** in bash so the report header is accurate.
-2. **For each theme, do live research** — use web search / fetch tools (or a deep-research harness for thorough cross-checking) to pull the latest earnings release, order announcement, or sector news. Prefer primary sources (company IR pages, SEC filings) and reputable wires (Reuters, Bloomberg, AP). Capture exact URLs and publication dates.
-3. **Verify every validation claim.** Numbers (backlog, capital raises, revenue, FDA approvals) must come from a cited primary source published within roughly the last 6 months. If you can't verify, drop the stock and substitute another.
-4. **Reject theme crowding.** Before finalizing the list, scan for hidden overlap (e.g., two "AI data center" picks dressed up as different themes). If overlap exists, replace one.
-5. **Do not invent tickers, executives, dollar figures, or dates.** If a fact isn't in your sources, omit it rather than guessing.
+## Apply the candidate methodology
 
-## Output format
+Apply every step to every candidate:
 
-Save as a **PDF** to the user's selected workspace folder (use the `pdf` skill if available). Filename pattern: `diversified_bottleneck_stock_report_YYYY-MM-DD.pdf`. If the user explicitly asks for a different format (e.g., Markdown, Word), follow that instead.
+1. **Name the demand wave.** Identify the end-market driver and the measurable demand unit.
+2. **Map the supply chain.** Trace the necessary inputs, equipment, services, infrastructure, approvals, and customer qualification steps.
+3. **Locate the binding constraint.** Identify the layer with the lowest realistic qualified-output ceiling rather than the layer receiving the most publicity.
+4. **Connect the company.** Explain whether the company controls, solves, supplies, or merely depends on the bottleneck.
+5. **Classify durability.** Assign exactly one required durability indicator using the reference framework:
+   - `Probably Temporary`
+   - `Potentially Hard to Scale`
+6. **State confidence.** Assign `Low`, `Medium`, or `High` confidence and explain the largest uncertainty.
+7. **Validate current demand and company exposure.** Cite recent orders, backlog conversion, approvals, customer agreements, utilization, pricing, capacity, filings, or comparable evidence.
+8. **Apply the risk penalty.** Downgrade for balance-sheet weakness, valuation risk, customer concentration, regulation, execution delays, cyclicality, dilution, or geopolitical exposure. Assign `Low`, `Medium`, `Medium-High`, `High`, or `Very High` risk.
 
-Structure the document in this order:
+Do not equate a hard industry problem with a strong company moat. Require evidence that the selected company can capture economic value from the constraint.
 
-**1. Header**
-- Title: "Diversified Bottleneck Stock Research Report"
-- Subtitle: "{N} research candidates across {N} different investment themes"
-- Prepared date (today's actual date)
+## Enforce the durability indicator
 
-**2. Disclaimer box** (verbatim or close to):
-> Important: This report is for research and education only. It is not financial advice, not a recommendation to buy or sell securities, and does not consider your personal risk tolerance, time horizon, tax situation, or portfolio. Small-cap and thematic stocks can be extremely volatile.
+Display the indicator for every stock in the summary table and its deep dive.
 
-**3. Executive Summary** — one short paragraph explaining the bottleneck-scanner premise and the three traits the strongest candidates share (large demand wave + hard-to-scale chokepoint + customer/market validation).
+Use these exact labels:
 
-**4. One-Theme-Per-Stock Watchlist table** with columns: Rank | Ticker | Theme | Scanner thesis (1–2 sentences) | Risk.
+- **Probably Temporary** — use an amber badge or cell when styling permits.
+- **Potentially Hard to Scale** — use a blue or teal badge or cell when styling permits.
 
-**5. Model Methodology** — the 6-step list above, in prose form.
+Always print the text. Never communicate the classification through color alone. Do not use green or red because the indicator is not a trading recommendation.
 
-**6. Per-stock deep dives** — one section per ticker, in this exact shape:
-- Heading: `TICKER - Company Name`
-- Sub-heading: `Theme: {theme name} bottleneck`
-- 1 paragraph: thesis + the specific validation evidence (with dates and dollar figures from cited source)
-- `What to monitor` — 3 bullets of forward-looking signals
-- `Key risks` — 3–4 bullets
-- Italic source line at the bottom: `Source: {primary source}, {date}.`
+Classify `Potentially Hard to Scale` only when the evidence supports all of the following:
 
-**7. How to Use This Watchlist** — 4 short paragraphs covering: it's a research funnel not buy-recs, avoid hidden concentration, use thesis invalidation (define what would prove each thesis wrong), prefer staged research (spreadsheet → 10-Q/10-K → competitors → valuation).
+1. At least one important non-capital time gate exists, such as permitting, specialized equipment, yield learning, tacit expertise, regulatory approval, or customer qualification.
+2. Qualified supply is unlikely to catch required demand within the stated research horizon even after announced and realistically fundable expansion.
+3. Substitution, redesign, recycling, efficiency gains, or lower-spec alternatives are unlikely to remove the constraint faster than demand grows.
+4. Entry history, minimum efficient scale, switching costs, scarce-resource access, or regulation provides evidence of a genuine barrier.
+5. The company controls or solves the constraint and shows plausible value capture through pricing, margins, contracts, returns on capital, share stability, or another verified mechanism.
 
-**8. Selected Sources** — bulleted list of every URL cited, formatted as `**Label:** https://...`
+If any condition is unsupported, use `Probably Temporary`. If evidence is insufficient or genuinely mixed, set the indicator to `Probably Temporary`, set confidence to `Low`, and explain what evidence could change the result. Never invent a neutral third label.
 
-## Style rules
+Treat the indicator as horizon-dependent. State the applicable horizon, normally 12–24 months for cyclical shortages and 3–5 years for structural constraints, but adjust it to the industry's actual construction, qualification, or regulatory cycle.
 
-- Plain, neutral language. No hype, no superlatives ("best", "must-own", "explosive").
-- Never include price targets, "buy below X", or position-sizing advice.
-- Every concrete claim (backlog size, capital raise, FDA approval, earnings figure) must have a dated source.
-- Risk labels must reflect real fragility — don't soften them to make the list look balanced.
-- If a theme has no candidate that clears the validation bar, leave it out and note in the executive summary that fewer than N themes met the criteria this cycle.
+## Research with a source chain
 
-## Verification step (do not skip)
+Perform live research for every report.
 
-Before delivering, re-read the draft and check: (a) each ticker has a primary-source citation with a date in roughly the last 6 months, (b) no two picks share a hidden theme, (c) the disclaimer is present, (d) risk labels are consistent with the per-stock risk bullets, (e) all URLs in Selected Sources actually appear in the body, and vice versa.
+For each stock:
 
-Present the finished PDF with a download link and a one-sentence summary. Do not re-explain the contents — the user can open the file.
+1. Obtain at least one current primary company source, such as a filing, earnings release, investor presentation, official transcript, or product and capacity announcement.
+2. Obtain at least one independent perspective from a customer, supplier, competitor, regulator, government agency, standards body, recognized research lab, or fund-manager research publication.
+3. Use a reputable newswire or high-quality industry publication when it adds necessary context or challenges management's claim.
+4. Search for disconfirming evidence, including new capacity, falling lead times, substitute technologies, customer redesigns, second sourcing, inventory increases, price normalization, and entrant progress.
+
+Use sources published within roughly the last six months for current financial, backlog, capacity, pricing, order, and approval claims. Use older sources for structural history, scientific constraints, prior cycles, or foundational methods only when they remain relevant and are paired with current evidence.
+
+Record the publication date and direct URL for each source. Cite claims where they appear.
+
+Do not rely solely on the selected company's management. Do not treat announced nameplate capacity as qualified output. Do not use an unsourced market-size estimate.
+
+If a candidate lacks sufficient evidence, drop it and substitute another. If fewer than the requested number clear the evidence bar, deliver fewer and say why.
+
+## Reject hidden concentration
+
+Before finalizing the list, compare the actual demand drivers and revenue sensitivities of all candidates.
+
+Replace a candidate when two stocks depend primarily on the same underlying spending pool or constraint, even if their products have different names. Examples of hidden overlap include two AI data-center suppliers, two uranium-price exposures, or two grid-equipment companies driven by the same transformer shortage.
+
+## Produce the V2 report
+
+Save the final report as a PDF unless the user requests another format. Use the PDF workflow available in the environment and verify the rendered pages visually.
+
+Use this filename:
+
+`diversified_bottleneck_stock_report_v2_YYYY-MM-DD.pdf`
+
+Structure the report in this order:
+
+### 1. Header
+
+- Title: `Diversified Bottleneck Stock Research Report — V2`
+- Subtitle: `{N} research candidates across {N} different themes`
+- Prepared date and evidence cutoff date
+
+### 2. Disclaimer
+
+Use the required disclaimer near the beginning.
+
+### 3. Executive summary
+
+Explain the demand-wave and chokepoint premise in one short paragraph. Report:
+
+- Number classified `Probably Temporary`
+- Number classified `Potentially Hard to Scale`
+- Any requested themes that failed the evidence bar
+- The principal uncertainty affecting the scan
+
+### 4. One-theme-per-stock watchlist
+
+Use these columns:
+
+`Rank | Ticker | Theme | Durability indicator | Confidence | Scanner thesis | Risk`
+
+Keep the scanner thesis to one or two sentences. Ensure every durability cell uses one of the two exact labels.
+
+### 5. V2 methodology
+
+Briefly explain:
+
+- The demand-versus-qualified-supply comparison
+- The three clocks: demand, qualified supply, and workaround
+- The seven durability tests
+- The distinction between industry scarcity and company value capture
+- The conservative classification rule
+
+### 6. Per-stock deep dives
+
+Use this exact structure for every stock:
+
+1. `TICKER — Company Name`
+2. `Theme: {distinct bottleneck theme}`
+3. `Durability indicator: {Probably Temporary | Potentially Hard to Scale}`
+4. `Confidence: {Low | Medium | High}`
+5. `Research horizon: {stated horizon}`
+6. **Thesis** — demand wave, specific bottleneck, company connection, and current dated validation
+7. **Three-clock assessment**
+   - Demand clock
+   - Qualified-supply clock
+   - Workaround clock
+8. **Why the indicator may be right** — two to four evidence-backed points
+9. **Evidence against the indicator** — at least two genuine counterpoints
+10. **Company value capture** — explain control of the bottleneck and evidence from pricing, margins, contracts, share, or returns
+11. **What would flip the indicator** — define observable invalidation conditions
+12. **What to monitor** — three forward-looking signals
+13. **Key risks** — three to four stock-specific risks
+14. **Sources** — dated source list with direct links
+
+Do not omit counterevidence. A deep dive without a credible bear case fails verification.
+
+### 7. How to use the watchlist
+
+Explain that:
+
+- The report is a research funnel, not a list of recommendations.
+- A temporary bottleneck can still produce a short earnings windfall.
+- A hard-to-scale bottleneck can still be a poor investment because value capture, balance sheet, or valuation may be unfavorable.
+- Research should proceed from filings to competitors, customers, valuation, and thesis invalidation.
+
+### 8. Selected sources
+
+List every URL used in the body and no unused URLs. Format each entry as:
+
+`**Source label — publication date:** https://...`
+
+## Write neutrally
+
+- Use plain, specific language.
+- Avoid hype and superlatives such as “best,” “must-own,” “explosive,” or “guaranteed.”
+- Separate facts, management claims, outside estimates, and the report's inference.
+- Label uncertainty and scenario assumptions.
+- Avoid false precision when data are unavailable.
+- Explain why a classification was assigned, not just what it is.
+- Keep fund-manager opinions distinct from company filings and scientific or engineering evidence.
+
+## Verify before delivery
+
+Confirm all of the following:
+
+- The disclaimer is present.
+- Every stock has exactly one durability indicator and a confidence level.
+- Every `Potentially Hard to Scale` classification clears all five mandatory conditions.
+- Every stock includes disconfirming evidence and a flip condition.
+- Current validation claims use dated sources from roughly the last six months.
+- Structural claims are supported by relevant sources and paired with current evidence.
+- Every stock has a primary company source and an independent source.
+- No two stocks share a hidden theme.
+- Risk labels match the deep-dive risks.
+- All body URLs appear in Selected Sources and all Selected Sources appear in the body.
+- The rendered PDF has no clipping, overlap, missing glyphs, broken links, orphan headings, or unreadable tables.
+- The filename includes `v2` and the actual preparation date.
+
+Present the verified artifact with a direct download link and one sentence summarizing the classification mix. Do not claim validation steps passed unless they actually ran successfully.
