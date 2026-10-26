@@ -12,7 +12,7 @@ Added:
 - **Aggregate thematic exposure** paragraph after the hidden-concentration check.
 - Evidence packets archived per stock (`references/evidence-packet-template.md`), with an archive note ending the report.
 - `references/scoring-crosscheck.md`: local rubric as a fallback and cross-check when the scoring model is unavailable.
-- `samples/` directory, README badges, and this changelog.
+- `samples/` directory with the 2026-10-04 and 2026-10-18 V2 sample reports, README badges, and this changelog.
 
 Changed:
 - Report filename is now `diversified_bottleneck_stock_report_v2_1_YYYY-MM-DD.pdf`.

@@ -81,13 +81,13 @@ The normal deliverable is a source-backed PDF containing:
 
 ## Download
 
-Open the [latest GitHub Release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest) and download:
+Open the [latest GitHub Release](https://github.com/ericxinqisu/bottleneck-stock-scanner/releases/latest) and download:
 
 ```text
 bottleneck-stock-scanner-v2.1.skill
 ```
 
-[Direct download from the latest release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner-v2.1.skill)
+[Direct download from the latest release](https://github.com/ericxinqisu/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner-v2.1.skill)
 
 ## Install
 
