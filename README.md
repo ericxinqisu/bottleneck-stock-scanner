@@ -1,4 +1,9 @@
-# Bottleneck Stock Scanner V2
+# Bottleneck Stock Scanner V2.1
+
+![Skill version](https://img.shields.io/badge/skill-v2.1-blue)
+![Last updated](https://img.shields.io/badge/last%20updated-2026--10--26-lightgrey)
+![Scope](https://img.shields.io/badge/use-research%20only-orange)
+![Format](https://img.shields.io/badge/output-PDF%20%2B%20evidence%20packets-teal)
 
 A reusable AI research skill for finding public companies positioned around supply-chain bottlenecks—and testing whether each bottleneck is likely temporary or genuinely difficult to scale.
 
@@ -6,7 +11,18 @@ Instead of starting with popular stocks, the scanner starts with a growing deman
 
 > If this industry keeps growing, which company could become difficult to avoid—and will the constraint last long enough for the company to capture value?
 
-## What V2 Adds
+## What V2.1 Adds
+
+- **Changes since last scan** section comparing each report with the previous one
+- **Borderline gate** flags for scores within 0.10 of the 0.75 threshold, plus scoring model and prompt documentation
+- **Aggregate thematic-exposure** paragraph (for example, share of the list tied to AI data-center capex)
+- **Archived evidence packets** for every stock
+- **Sensitivity notes** and a local scoring cross-check (`references/scoring-crosscheck.md`) to reduce dependence on a single model run
+- [`CHANGELOG.md`](CHANGELOG.md) and a [`samples/`](samples) directory
+
+The seven tests and the all-five-gates-at-0.75 rule are unchanged. See the changelog for details.
+
+## What V2 Added
 
 Every stock now receives one required durability indicator:
 
@@ -58,23 +74,26 @@ The normal deliverable is a source-backed PDF containing:
 - Per-stock deep dives
 - Counterevidence and thesis invalidation conditions
 - Monitoring signals and key risks
+- Changes since last scan
+- Borderline-gate flags, sensitivity notes, and aggregate thematic exposure
 - Dated source list with direct links
+- Archived evidence packets (one file per stock)
 
 ## Download
 
-Open the [latest GitHub Release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest) and download:
+Open the [latest GitHub Release](https://github.com/ericxinqisu/bottleneck-stock-scanner/releases/latest) and download:
 
 ```text
-bottleneck-stock-scanner-v2.skill
+bottleneck-stock-scanner-v2.1.skill
 ```
 
-[Direct download from the latest release](https://github.com/MerryRanger922/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner-v2.skill)
+[Direct download from the latest release](https://github.com/ericxinqisu/bottleneck-stock-scanner/releases/latest/download/bottleneck-stock-scanner-v2.1.skill)
 
 ## Install
 
 ### Codex or ChatGPT Desktop
 
-1. Download `bottleneck-stock-scanner-v2.skill`.
+1. Download `bottleneck-stock-scanner-v2.1.skill`.
 2. Open the Skills section in the desktop app.
 3. Choose **New Skill** or **Upload from your computer**.
 4. Select the downloaded `.skill` file.
@@ -98,6 +117,8 @@ The package is a ZIP-compatible archive containing:
 bottleneck-stock-scanner/SKILL.md
 bottleneck-stock-scanner/agents/openai.yaml
 bottleneck-stock-scanner/references/durability-classification.md
+bottleneck-stock-scanner/references/scoring-crosscheck.md
+bottleneck-stock-scanner/references/evidence-packet-template.md
 ```
 
 Extract the folder into the skills directory used by your AI agent environment.
